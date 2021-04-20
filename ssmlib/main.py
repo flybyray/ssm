@@ -352,7 +352,7 @@ class FsInfo(object):
         realdev = misc.get_real_device(dev)
         mount_point = misc.get_mounts(dev).get(realdev, {}).get('mp', None)
         if mount_point:
-            stat = os.statvfs(mount_point)
+            stat = os.statvfs(mount_point.encode('latin1').decode('unicode-escape').encode('latin1').decode('utf-8'))
             total = stat.f_blocks*stat.f_bsize/1024
             free = stat.f_bfree*stat.f_bsize/1024
             used = (stat.f_blocks-stat.f_bfree)*stat.f_bsize/1024
